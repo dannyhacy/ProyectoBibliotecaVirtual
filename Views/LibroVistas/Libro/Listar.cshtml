@@ -1,0 +1,66 @@
+﻿@model List<Biblioteca.Models.Libro.Libro>
+@{
+    ViewData["Title"] = "List";
+}
+
+<h1 class="mt-4">Lista de Libros</h1>
+<ol class="breadcrumb mb-4">
+    <li class="breadcrumb-item">
+        <form action="@Url.Action("Create", "Libro")" method="get" style="display:inline;">
+            <button type="submit" class="btn btn-primary">Nuevo Libro</button>
+        </form>
+    </li>
+</ol>
+
+<div class="card mb-4">
+    <div class="card-header">
+        <i class="fas fa-table me-1"></i>
+        Listado
+    </div>
+    <div class="card-body">
+        <table id="datatablesSimple">
+            <thead>
+                <tr>
+                    <th>Título</th>
+                    <th>Autor</th>
+                    <th>Editorial</th>
+                    <th>Género/Categoría</th>
+                    <th>Idioma</th>
+                    <th>Año</th>
+                    <th>Ubicacion de Libro</th>
+                    <th>Ejemplares</th>
+                    <th>Descripción</th>
+                    <th>Operaciones</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var libro in Model)
+                {
+                    <tr>
+                        <td>@Html.DisplayFor(modelItem => libro.Titulo)</td>
+                        <td>@Html.DisplayFor(modelItem => libro.Autor.AutorLibro)</td>
+                        <td>@Html.DisplayFor(modelItem => libro.Editorial.EditorialLibro)</td>
+                        <td>@Html.DisplayFor(modelItem => libro.Genero.GeneroLibro)</td>
+                        <td>@Html.DisplayFor(modelItem => libro.Idioma.IdiomaLibro)</td>
+                        <td>@Html.DisplayFor(modelItem => libro.AñoPublicacion)</td>
+                        <td>@Html.DisplayFor(modelItem => libro.UbicacionLibro)</td>
+                        <td>@Html.DisplayFor(modelItem => libro.Ejemplares)</td>
+                        <td>
+                            <a href="@Url.Action("Edit", "libro", new { id = libro.Id })" class="btn btn-primary me-2"><i class="fas fa-edit"></i></a>
+                            <form action="@Url.Action("Delete", "libro", new { id = libro.Id })" method="post" style="display:inline;">
+                                @Html.AntiForgeryToken() <!-- Agregar token de anti-falsificación -->
+                                <button type="submit" class="btn btn-danger me-2" onclick="return confirm('¿Estás seguro de que deseas eliminar el LIBRO seleccionado?');"><i class="fas fa-trash"></i></button>
+                            </form>
+                        </td>
+                    </tr>
+
+                }
+
+            </tbody>
+        </table>
+    </div>
+</div>
+
+
+
+

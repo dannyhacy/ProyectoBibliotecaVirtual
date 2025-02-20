@@ -1,0 +1,47 @@
+﻿@model List<Biblioteca.Models.Libro.Autor >
+@{
+    ViewData["title"] = "Listar";
+}
+
+<h1 class="mt-4">Lista de Autores</h1>
+<ol class="breadcrumb mb-4">
+    <li class="breadcrumb-item">
+        <form action="@Url.Action("Create", "Autor")" method="get" style="display:inline;">
+            <button type="submit" class="btn btn-primary">Nuevo Autor</button>
+        </form>
+    </li>
+</ol>
+
+<div class="card mb-4">
+    <div class="card-header">
+        <i class="fas fa-table me-1"></i>
+        Listado
+    </div>
+    <div class="card-body">
+        <table id="datatablesSimple">
+            <thead>
+                <tr>
+                    <th>Nombre del Autor</th>
+                    <th>Operaciones</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var Autor in Model)
+                {
+                    <tr>
+                        <td>@Html.DisplayFor(modelItem => Autor.AutorLibro)</td>
+                        <td>
+                            <a href="@Url.Action("Edit", "Autor", new { id = Autor.Id })" class="btn btn-primary me-2"><i class="fas fa-edit"></i></a>
+                            <form action="@Url.Action("Delete", "Autor", new { id = Autor.Id })" method="post" style="display:inline;">
+                                @Html.AntiForgeryToken() <!-- Agregar token de anti-falsificación -->
+                                <button type="submit" class="btn btn-danger me-2" onclick="return confirm('¿Estás seguro de que deseas eliminar el AUTOR seleccionado?');"><i class="fas fa-trash"></i></button>
+                            </form>
+                        </td>
+                    </tr>
+
+                }
+
+            </tbody>
+        </table>
+    </div>
+</div>

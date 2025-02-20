@@ -1,0 +1,48 @@
+﻿@model List<Biblioteca.Models.Libro.Genero>
+@{
+    ViewData["title"] = "Listar";
+}
+
+<h1 class="mt-4">Lista de Géneros / Categorías</h1>
+<ol class="breadcrumb mb-4">
+    <li class="breadcrumb-item">
+        <form action="@Url.Action("Create", "Genero")" method="get" style="display:inline;">
+            <button type="submit" class="btn btn-primary">Nuevo Género / Categoría</button>
+        </form>
+    </li>
+</ol>
+
+<div class="card mb-4">
+    <div class="card-header">
+        <i class="fas fa-table me-1"></i>
+        Listado 
+    </div>
+    <div class="card-body">
+        <table id="datatablesSimple">
+            <thead>
+                <tr>
+                    <th>Nombre del Género / Categoría</th>
+                    <th>Operaciones</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var genero in Model)
+                {
+                    <tr>
+                        <td>@Html.DisplayFor(modelItem => genero.GeneroLibro)</td>
+                        <td>
+                            <a href="@Url.Action("Edit", "Genero", new { id = genero.Id })" class="btn btn-primary me-2"><i class="fas fa-edit"></i></a>
+                            <form action="@Url.Action("Delete", "Genero", new { id = genero.Id })" method="post" style="display:inline;">
+                                @Html.AntiForgeryToken() <!-- Agregar token de anti-falsificación -->
+                                <button type="submit" class="btn btn-danger me-2" onclick="return confirm('¿Estás seguro de que deseas eliminar el GÉNERO LITERARIO seleccionado?');"><i class="fas fa-trash"></i></button>
+                            </form>
+                        </td>
+                    </tr>
+
+                }
+
+            </tbody>
+        </table>
+    </div>
+</div>
+
