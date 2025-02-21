@@ -2,37 +2,29 @@
 @{
     ViewData["Title"] = "Create";
 }
-
-@using (Html.BeginForm("Create", "UbicacionLibro", FormMethod.Post))
+@using (Html.BeginForm())
 {
-    @Html.AntiForgeryToken() 
-    <div class="container">
-        <div class="row justify-content-center">
-            <div class="col-lg-7">
-                <div class="card shadow-lg border-0 rounded-lg mt-5">
-                    <div class="card-header">
-                        <h3 class="text-center font-weight-light my-4">Nueva Ubicación de Libro</h3>
-                    </div>
-                    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-                    <div class="card-body">
-                        <div class="form-floating mb-3">
-                            @Html.EditorFor(model => model.Ubicacion, new { htmlAttributes = new { @class = "form-control", @placeholder = "22" } })
-                            <label for="Nombre">Ingrese la Ubicacion de Libro</label>
-                            @Html.ValidationMessageFor(model => model.Ubicacion, "", new { @class = "text-danger" })
-                        </div>
-                        <div class="mt-4 mb-0">
-                            <div class="d-grid">
-                                <input type="submit" value="Guardar" class="btn btn-primary btn-block" />
-                            </div>
-                        </div>
-                    </div>
-                    <div class="card-footer text-center py-3">
-                        <div class="small"><a href=@Url.Action("Listar", "UbicacionLibro")><h5>Regresar a la Lista de Ubicaciones</h5></a></div>
+    <div class="account-login2">
+        <h2 class="text-center mb-4" style="font-family:OMEGLE ; font-size: 45px"><b>Nueva Ubicación de Libro</b></h2>
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        <div class="card-body">
+            <form asp-action="Create" method="post">
+                @Html.AntiForgeryToken() <!--seguridad Token-->
+                <div class="form-floating mb-3">
+                    @Html.EditorFor(model => model.Ubicacion, new { htmlAttributes = new { @class = "form-control", @placeholder = "22" } })
+                    <label for="Nombre">Ingrese la Ubicacion de Libro</label>
+                    @Html.ValidationMessageFor(model => model.Ubicacion, "", new { @class = "text-danger" })
+                </div>
+                <div class="mt-4 mb-0">
+                    <div class="d-grid">
+                        <input type="submit" value="Guardar" class="btn btn-primary btn-block" />
                     </div>
                 </div>
-            </div>
+            </form>
+        </div>
+        <div class="card-footer text-center py-3">
+            <div class="small"><a href=@Url.Action("Listar","UbicacionLibro")><h5>Regresar a la Lista de Ubicaciones</h5></a></div>
         </div>
     </div>
 }
-
 

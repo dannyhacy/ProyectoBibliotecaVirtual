@@ -73,6 +73,17 @@
     opacity: .95;
 }
 
+.account-listar3 {
+    background-color: aliceblue;
+    padding: 30px;
+    border-radius: 20px;
+    box-shadow: 0 0 15px rgba(0,0,0,0.5);
+    width: 1000px;
+    height: 100%;
+    margin: 20px auto;
+    opacity: .95;
+}
+
 .account-create {
     background-color: lightsteelblue;
     padding: 10px 30px 60px 30px;
@@ -105,7 +116,7 @@
     padding: 10px 30px 60px 30px;
     border-radius: 20px;
     box-shadow: 0 0 50px rgba(0,0,0,0.5);
-    width: 1000px;
+    width: 1600px;
     height: 100%;
     margin: 20px auto;
     opacity: .95;
