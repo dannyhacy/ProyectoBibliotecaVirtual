@@ -16,7 +16,7 @@
                             @Html.AntiForgeryToken() <!--seguridad Token-->
                             <div class="form-floating mb-3">
                                 @Html.EditorFor(model => model.AutorLibro, new { htmlAttributes = new { @class = "form-control", @placeholder = "22" } })
-                                <label for="Nombre">Ingrese su Nombre</label>
+                                <label for="Nombre">Ingrese Nombre de Autor</label>
                                 @Html.ValidationMessageFor(model => model.AutorLibro, "", new { @class = "text-danger" })
                             </div>
                             <div class="mt-4 mb-0">
