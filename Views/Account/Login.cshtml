@@ -1,0 +1,50 @@
+﻿@using Biblioteca.ViewModels;
+@model LoginViewModel;
+
+@{
+    ViewData["Title"] = "Login";
+    Layout = "~/Views/Shared/_AccountLayout.cshtml";
+}
+<div class="account-container">
+    <div class="account-login">
+        <h2 class="text-center mb-4" style="font-family:OMEGLE ; font-size: 45px"><b>Login</b></h2>
+        <form asp-action="Login" method="post">
+            @Html.AntiForgeryToken()
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-floating mb-3">
+                @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "form-control", @placeholder = "Ingrese Email" } })
+                <label asp-for="Email">Ingrese Email</label>
+                @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
+            </div>
+            <div class="form-floating mb-3">
+                @Html.EditorFor(model => model.Password, new { htmlAttributes = new { @class = "form-control", @placeholder = "Ingrese Password" } })
+                <label asp-for="Password">Ingrese Password</label>
+                @Html.ValidationMessageFor(model => model.Password, "", new { @class = "text-danger" })
+            </div>
+            <div class="float-end">
+                <a asp-controller="Account" asp-action="VerifyEmail" class="text-decoration-none"><b>¿Olvidaste tu Password?</b></a>
+            </div>
+            <div class="form-check-label mb-3">
+                <label class="form-check-label">
+                    <input asp-for="RememberMe" class="form-check-input" />
+                    @Html.DisplayNameFor(a => a.RememberMe)
+                </label>
+            </div>
+            <div class="mb-3">
+                <input type="submit" value="Login" class="btn btn-success w-100 p-2" />
+            </div>
+            <p class="text-center mt-2">
+                ¿No tienes una cuenta?  <a asp-controller="Account" asp-action="Register" class="text-decoration-none"><b>Regístrate</b></a>
+            </p>
+            <div class="text-center">
+                <a asp-controller="Home" asp-action="Index" class="text-decoration-none mt-3"><b>Regresar</b></a>
+            </div>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial.cshtml");
+    }
+}

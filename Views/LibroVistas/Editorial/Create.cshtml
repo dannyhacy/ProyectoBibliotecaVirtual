@@ -5,15 +5,12 @@
 
 @using (Html.BeginForm("Create", "Editorial", FormMethod.Post))
 {
-    @Html.AntiForgeryToken() <!--seguridad Token-->
-    <div class="container">
-        <div class="row justify-content-center">
-            <div class="col-lg-7">
-                <div class="card shadow-lg border-0 rounded-lg mt-5">
-                    <div class="card-header">
-                        <h3 class="text-center font-weight-light my-4">Nueva Editorial</h3>
+    
+    <div class="account-login2">
+        <h2 class="text-center mb-4" style="font-family:OMEGLE ; font-size: 45px"><b>Crear Editorial</b></h2>
                     </div>
                     @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                    @Html.AntiForgeryToken() <!--seguridad Token-->
                     <div class="card-body">
                         <div class="form-floating mb-3">
                             @Html.EditorFor(model => model.EditorialLibro, new { htmlAttributes = new { @class = "form-control", @placeholder = "22" } })
@@ -28,10 +25,7 @@
                     </div>
                     <div class="card-footer text-center py-3">
                         <div class="small"><a href=@Url.Action("Listar", "Editorial")><h5>Regresar a la Lista de Editoriales</h5></a></div>
-                    </div>
-                </div>
-            </div>
-        </div>
+                    
     </div>
 }
 

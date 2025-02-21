@@ -5,7 +5,7 @@
 namespace Biblioteca.Migrations
 {
     /// <inheritdoc />
-    public partial class Migra01 : Migration
+    public partial class Inicial : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)

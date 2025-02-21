@@ -23,6 +23,23 @@ namespace Biblioteca.Controllers
             return View();
         }
 
+        public IActionResult Mision()
+        {
+            return View();
+        }
+
+        public IActionResult Vision()
+        {
+            return View();
+        }
+
+        public IActionResult Nosotros()
+        {
+            return View();
+        }
+
+
+
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
         {

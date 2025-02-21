@@ -5,11 +5,8 @@
 
 @using (Html.BeginForm())
 {
-    <div class="container">
-        <div class="row justify-content-center">
-            <div class="col-lg-7">
-                <div class="card shadow-lg border-0 rounded-lg mt-5">
-                    <div class="card-header"><h3 class="text-center font-weight-light my-4">Modificar Editorial</h3></div>
+    <div class="account-login2">
+        <h2 class="text-center mb-4" style="font-family:OMEGLE ; font-size: 45px"><b>Modificar Editorial</b></h2>
                     @Html.ValidationSummary(true, "", new { @class = "text-danger" })
                     <div class="card-body">
                         <form asp-action="Edit" method="post">
@@ -29,8 +26,5 @@
                     <div class="card-footer text-center py-3">
                         <div class="small"><a href=@Url.Action("Listar","Editorial")><h5>Regresar a la Lista de Editoriales</h5></a></div>
                     </div>
-                </div>
-            </div>
-        </div>
     </div>
 }

@@ -1,0 +1,118 @@
+﻿.account-container {
+    background-image: url('../imagenes/biblioteca.jpg');
+    background-size: cover;
+    background-position: center;
+    background-repeat: repeat-y;
+    display: flex;
+    justify-content: center;
+    align-content: center;
+    min-height: 100vh;
+    padding: 2rem 0;
+}
+
+.account-login {
+    background-color: white;
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.3);
+    width: 500px;
+    height: 100%;
+    margin: 20px auto;
+    opacity: .9;
+}
+.account-login2 {
+    background-color: white;
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.3);
+    width: 600px;
+    height: 100%;
+    margin: 20px auto;
+    opacity: .9;
+}
+
+.account-box1 {
+    background-color: aliceblue;
+    padding: 30px;
+    border-radius: 20px;
+    box-shadow: 0 0 15px rgba(0,0,0,0.5);
+    max-width: 80%;
+    height: 55%;
+    margin: 20px auto;
+    opacity: .9;
+}
+.account-box2 {
+    background-color: aliceblue;
+    padding: 30px;
+    border-radius: 20px;
+    box-shadow: 0 0 15px rgba(0,0,0,0.5);
+    max-width: 800px;
+    height: 100%;
+    margin: 20px auto;
+    opacity: .9;
+}
+
+.account-listar {
+    background-color: aliceblue;
+    padding: 30px;
+    border-radius: 20px;
+    box-shadow: 0 0 15px rgba(0,0,0,0.5);
+    width: 1300px;
+    height: 100%;
+    margin: 20px auto;
+    opacity: .95;
+}
+
+.account-create {
+    background-color: lightsteelblue;
+    padding: 10px 30px 60px 30px;
+    border-radius: 20px;
+    box-shadow: 0 0 50px rgba(0,0,0,0.5);
+    width: 700px;
+    height: 100%;
+    margin: 20px auto;
+    opacity: .95;
+}
+
+.col-lg-7a {
+    flex: 0 0 auto;
+    width: 80%;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+
+.col-lg-7b {
+    flex: 0 0 auto;
+    width: 90%;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+
+.account-libro {
+    background-color: lightsteelblue;
+    padding: 10px 30px 60px 30px;
+    border-radius: 20px;
+    box-shadow: 0 0 50px rgba(0,0,0,0.5);
+    width: 1000px;
+    height: 100%;
+    margin: 20px auto;
+    opacity: .95;
+}
+
+.account-perfil {
+    background-color: lightsteelblue;
+    padding: 10px 30px 60px 30px;
+    border-radius: 20px;
+    box-shadow: 0 0 50px rgba(0,0,0,0.5);
+    width: 850px;
+    height: 100%;
+    margin: 20px auto;
+    opacity: .95;
+}
+
+.col-md-666 {
+    flex: 0 0 auto;
+    width: 30%;
+}
