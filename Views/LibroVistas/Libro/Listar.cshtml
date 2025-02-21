@@ -30,6 +30,7 @@
                     <th>Ubicacion de Libro</th>
                     <th>Ejemplares</th>
                     <th>Estado de Libro</th>
+                    <th>Estado de Prestamo</th>
                     <th>Operaciones</th>
                 </tr>
             </thead>
@@ -46,6 +47,7 @@
                         <td>@Html.DisplayFor(modelItem => libro.UbicacionLibro.Ubicacion)</td>
                         <td>@Html.DisplayFor(modelItem => libro.Ejemplares)</td>
                         <td>@Html.DisplayFor(modelItem => libro.EstadoLibro.Estado)</td>
+                        <td>@Html.DisplayFor(modelItem => libro.EstadoPrestamo.Prestamo)</td>
                         <td>
                             <a href="@Url.Action("Edit", "libro", new { id = libro.Id })" class="btn btn-primary me-2"><i class="fas fa-edit"></i></a>
                             <form action="@Url.Action("Delete", "libro", new { id = libro.Id })" method="post" style="display:inline;">

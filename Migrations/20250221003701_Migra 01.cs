@@ -50,6 +50,19 @@ namespace Biblioteca.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "EstadoPrestamos",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Prestamo = table.Column<string>(type: "nvarchar(40)", maxLength: 40, nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_EstadoPrestamos", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Generos",
                 columns: table => new
                 {
@@ -102,7 +115,8 @@ namespace Biblioteca.Migrations
                     AñoPublicacion = table.Column<string>(type: "nvarchar(4)", maxLength: 4, nullable: false),
                     UbicacionLibroId = table.Column<int>(type: "int", nullable: false),
                     Ejemplares = table.Column<int>(type: "int", nullable: false),
-                    EstadoLibroId = table.Column<int>(type: "int", nullable: false)
+                    EstadoLibroId = table.Column<int>(type: "int", nullable: false),
+                    EstadoPrestamoId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -123,6 +137,12 @@ namespace Biblioteca.Migrations
                         name: "FK_Libros_EstadoLibros_EstadoLibroId",
                         column: x => x.EstadoLibroId,
                         principalTable: "EstadoLibros",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_Libros_EstadoPrestamos_EstadoPrestamoId",
+                        column: x => x.EstadoPrestamoId,
+                        principalTable: "EstadoPrestamos",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
@@ -161,6 +181,11 @@ namespace Biblioteca.Migrations
                 column: "EstadoLibroId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_Libros_EstadoPrestamoId",
+                table: "Libros",
+                column: "EstadoPrestamoId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Libros_GeneroId",
                 table: "Libros",
                 column: "GeneroId");
@@ -190,6 +215,9 @@ namespace Biblioteca.Migrations
 
             migrationBuilder.DropTable(
                 name: "EstadoLibros");
+
+            migrationBuilder.DropTable(
+                name: "EstadoPrestamos");
 
             migrationBuilder.DropTable(
                 name: "Generos");

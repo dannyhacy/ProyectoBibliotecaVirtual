@@ -24,6 +24,7 @@ namespace Biblioteca.Controllers.Libros
                 .Include(i => i.Idioma)
                 .Include(ul => ul.UbicacionLibro)
                 .Include(el => el.EstadoLibro)
+                .Include(el => el.EstadoPrestamo)
                 .ToListAsync();
             return View(Libro);
         }
@@ -37,12 +38,13 @@ namespace Biblioteca.Controllers.Libros
             ViewData["Idiomas"] = new SelectList(_LibroContext.Idiomas, "Id", "IdiomaLibro");
             ViewData["UbicacionLibros"] = new SelectList(_LibroContext.UbicacionLibros, "Id", "Ubicacion");
             ViewData["EstadoLibros"] = new SelectList(_LibroContext.EstadoLibros, "Id", "Estado");
+            ViewData["EstadoPrestamos"] = new SelectList(_LibroContext.EstadoPrestamos, "Id", "Prestamo");
             return View();
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Titulo,AutorId,EditorialId,GeneroId,IdiomaId,AñoPublicacion,UbicacionLibroId,Ejemplares,EstadoLibroId")] Libro libro)
+        public async Task<IActionResult> Create([Bind("Id,Titulo,AutorId,EditorialId,GeneroId,IdiomaId,AñoPublicacion,UbicacionLibroId,Ejemplares,EstadoLibroId,EstadoPrestamoId")] Libro libro)
         {
             try
             {
@@ -76,6 +78,7 @@ namespace Biblioteca.Controllers.Libros
             ViewData["Idiomas"] = new SelectList(_LibroContext.Idiomas, "Id", "IdiomaLibro");
             ViewData["UbicacionLibros"] = new SelectList(_LibroContext.UbicacionLibros, "Id", "Ubicacion");
             ViewData["EstadoLibros"] = new SelectList(_LibroContext.EstadoLibros, "Id", "Estado");
+            ViewData["EstadoPrestamos"] = new SelectList(_LibroContext.EstadoPrestamos, "Id", "Prestamo");
             var libro = await _LibroContext.Libros.FirstOrDefaultAsync(l => l.Id == id);
             if (libro == null)
             {
@@ -86,7 +89,7 @@ namespace Biblioteca.Controllers.Libros
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Titulo,AutorId,EditorialId,GeneroId,IdiomaId,AñoPublicacion,UbicacionLibroId,Ejemplares,EstadoLibroId")] Libro libro)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,Titulo,AutorId,EditorialId,GeneroId,IdiomaId,AñoPublicacion,UbicacionLibroId,Ejemplares,EstadoLibroId,EstadoPrestamoId")] Libro libro)
         {
             try
             {
@@ -102,6 +105,7 @@ namespace Biblioteca.Controllers.Libros
                 ViewData["Idiomas"] = new SelectList(_LibroContext.Idiomas, "Id", "IdiomaLibro");
                 ViewData["UbicacionLibros"] = new SelectList(_LibroContext.UbicacionLibros, "Id", "Ubicacion");
                 ViewData["EstadoLibros"] = new SelectList(_LibroContext.EstadoLibros, "Id", "Estado");
+                ViewData["EstadoPrestamos"] = new SelectList(_LibroContext.EstadoPrestamos, "Id", "Prestamo");
             }
             catch (Exception ex)
             {

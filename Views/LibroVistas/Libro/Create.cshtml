@@ -90,7 +90,14 @@
                                     @Html.ValidationMessageFor(model => model.EstadoLibroId, "", new { @class = "text-danger" })
                                 </div>
                             </div>
-
+                            <div class="col-md-6">
+                                <div class="form-floating">
+                                    <select asp-for="EstadoPrestamoId" asp-items="ViewBag.EstadoPrestamos" class="form-control">
+                                        <option value="" disabled selected>[Seleccione Estado de Prestamo]</option>
+                                    </select>
+                                    @Html.ValidationMessageFor(model => model.EstadoPrestamoId, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
 
                         </div>
                         <div class="mt-4 mb-0">

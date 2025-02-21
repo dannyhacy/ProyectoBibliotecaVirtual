@@ -44,5 +44,8 @@ namespace Biblioteca.Models.Libro
         public int EstadoLibroId { get; set; }
         public EstadoLibro EstadoLibro { get; set; }
 
+        [Required(ErrorMessage = "El estado de Prestamo es obligatorio.")]
+        public int EstadoPrestamoId { get; set; }
+        public EstadoPrestamo EstadoPrestamo { get; set; }
     }
 }

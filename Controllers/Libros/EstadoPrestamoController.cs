@@ -5,21 +5,21 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Biblioteca.Controllers.Libros
 {
-    public class AutorController : Controller
+    public class EstadoPrestamoController : Controller
     {
-        private readonly BibliotecaContext _AutorContext;
+        private readonly BibliotecaContext _EstadoPrestamoContext;
 
-        public AutorController(BibliotecaContext autorcontext)
+        public EstadoPrestamoController(BibliotecaContext estadpPrestamoContext)
         {
-            _AutorContext = autorcontext;
+            _EstadoPrestamoContext = estadpPrestamoContext;
         }
-        
 
         public async Task<IActionResult> Listar()
         {
-            var Autor = await _AutorContext.Autores.ToListAsync();
-            return View(Autor); ;
+            var estadoprestamo = await _EstadoPrestamoContext.EstadoPrestamos.ToListAsync();
+            return View(estadoprestamo);
         }
+
 
         [HttpGet]
         public IActionResult Create()
@@ -29,25 +29,27 @@ namespace Biblioteca.Controllers.Libros
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id, AutorLibro")] Autor autor)
+        public async Task<IActionResult> Create([Bind("Id, Prestamo")] EstadoPrestamo estadoprestamo)
         {
             try
             {
                 if (ModelState.IsValid)
                 {
-                    _AutorContext.Add(autor);
-                    await _AutorContext.SaveChangesAsync();
+                    _EstadoPrestamoContext.Add(estadoprestamo);
+                    await _EstadoPrestamoContext.SaveChangesAsync();
                     return RedirectToAction("Listar");
                 }
                 return Create();
             }
             catch (Exception)
             {
-                ModelState.AddModelError("", "El Autor que está intentando ingresar ya se encuentra en la lista");
+                ModelState.AddModelError("", "El Estado de Prestamo que está intentando ingresar ya se encuentra en la lista");
             }
 
-            return View(autor);
+            return View(estadoprestamo);
         }
+
+
 
         [HttpGet]
         public async Task<IActionResult> Edit(int? id)
@@ -56,32 +58,32 @@ namespace Biblioteca.Controllers.Libros
             {
                 ModelState.AddModelError("", "Ocurrio un error al momento de Editar");
             }
-            var autor = await _AutorContext.Autores.FirstOrDefaultAsync(a => a.Id == id);
-            if (autor == null)
+            var estadoprestamo = await _EstadoPrestamoContext.EstadoPrestamos.FirstOrDefaultAsync(ep => ep.Id == id);
+            if (estadoprestamo == null)
             {
                 ModelState.AddModelError("", "No se encontró el Autor");
             }
-            return View(autor);
+            return View(estadoprestamo);
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,AutorLibro")] Autor autor)
+        public async Task<IActionResult> Edit(int id, [Bind("Id, Prestamo")] EstadoPrestamo estadoprestamo)
         {
             try
             {
                 if (ModelState.IsValid)
                 {
-                    _AutorContext.Update(autor);
-                    await _AutorContext.SaveChangesAsync();
+                    _EstadoPrestamoContext.Update(estadoprestamo);
+                    await _EstadoPrestamoContext.SaveChangesAsync();
                     return RedirectToAction("Listar");
                 }
             }
-            catch (Exception ex)
+            catch (Exception)
             {
-                ModelState.AddModelError("", "Ocurrio un error al momento de Editar => " + ex.Message);
+                ModelState.AddModelError("", "Ocurrio un error al momento de Editar.");
             }
-            return View(autor);
+            return View(estadoprestamo);
         }
 
 
@@ -93,8 +95,8 @@ namespace Biblioteca.Controllers.Libros
             {
                 ModelState.AddModelError("", "Ocurrio un error al momento de eliminar");
             }
-            var Autor = await _AutorContext.Autores.FirstOrDefaultAsync(a => a.Id == id);
-            if (Autor == null)
+            var estadoprestamo = await _EstadoPrestamoContext.EstadoPrestamos.FirstOrDefaultAsync(ep => ep.Id == id);
+            if (estadoprestamo == null)
             {
                 ModelState.AddModelError("", "No se encontró el Autor");
             }
@@ -102,8 +104,8 @@ namespace Biblioteca.Controllers.Libros
             {
                 if (ModelState.IsValid)
                 {
-                    _AutorContext.Remove(Autor);
-                    await _AutorContext.SaveChangesAsync();
+                    _EstadoPrestamoContext.Remove(estadoprestamo);
+                    await _EstadoPrestamoContext.SaveChangesAsync();
                     return RedirectToAction("Listar");
                 }
             }
@@ -111,8 +113,10 @@ namespace Biblioteca.Controllers.Libros
             {
                 ModelState.AddModelError("", "No se puede eliminar el Autor");
             }
-            return View(Autor);
+            return View(estadoprestamo);
         }
+
+
 
     }
 }

@@ -16,6 +16,7 @@ namespace Biblioteca.Data
         public DbSet<Idioma> Idiomas { get; set; } 
         public DbSet<UbicacionLibro> UbicacionLibros { get; set; }
         public DbSet<EstadoLibro> EstadoLibros { get; set; }
+        public DbSet<EstadoPrestamo> EstadoPrestamos { get; set; }
         public DbSet<Libro> Libros { get; set; }
 
                
