@@ -39,6 +39,27 @@ namespace Biblioteca.Migrations
                     b.ToTable("Autores");
                 });
 
+            modelBuilder.Entity("Biblioteca.Models.Libro.CarritoItem", b =>
+                {
+                    b.Property<int>("CarritoItemId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("CarritoItemId"));
+
+                    b.Property<int>("Cantidad")
+                        .HasColumnType("int");
+
+                    b.Property<int>("LibroId")
+                        .HasColumnType("int");
+
+                    b.HasKey("CarritoItemId");
+
+                    b.HasIndex("LibroId");
+
+                    b.ToTable("CarritoItems");
+                });
+
             modelBuilder.Entity("Biblioteca.Models.Libro.Editorial", b =>
                 {
                     b.Property<int>("Id")
@@ -206,6 +227,17 @@ namespace Biblioteca.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("UbicacionLibros");
+                });
+
+            modelBuilder.Entity("Biblioteca.Models.Libro.CarritoItem", b =>
+                {
+                    b.HasOne("Biblioteca.Models.Libro.Libro", "Libro")
+                        .WithMany()
+                        .HasForeignKey("LibroId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Libro");
                 });
 
             modelBuilder.Entity("Biblioteca.Models.Libro.Libro", b =>

@@ -1,0 +1,76 @@
+﻿@model IEnumerable<Biblioteca.Models.Libro.Libro>
+
+@{
+    ViewData["Title"] = "Libros";
+    Layout = "~/Views/Shared/_LayoutCarrito.cshtml";
+}
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+<div class="account-listar2">
+    <h2 class="text-center mb-4" style="font-family:OMEGLE ; font-size: 45px"><b>Libros Disponibles</b></h2>
+   
+
+
+<div class="row p-3">
+    @foreach (var libro in Model)
+    {
+        <div class="col-md-4 mb-4">
+            <div class="card">
+                <div class="card-body">
+                    <p class="card-title"><strong>Titulo:</strong> @libro.Titulo</p>
+                    <p class="card-text"><strong>Autor:</strong> @libro.Autor.AutorLibro</p>
+                    <p class="card-text"><strong>Editorial:</strong> @libro.Editorial.EditorialLibro</p>
+                    <p class="card-text"><strong>Genero:</strong> @libro.Genero.GeneroLibro</p>
+                    <p class="card-text"><strong>Idioma:</strong> @libro.Idioma.IdiomaLibro</p>
+                    <p class="card-text"><strong>Año de Publicacion:</strong> @libro.AñoPublicacion</p>
+                    <p class="card-text"><strong>Ubicacion:</strong> @libro.UbicacionLibro.Ubicacion</p>
+                    <p class="card-text"><strong>Ejemplares:</strong> @libro.Ejemplares</p>
+                    <p class="card-text"><strong>Estado:</strong> @libro.EstadoLibro.Estado</p>
+                    <p class="card-text"><strong>Estado del Prestamo:</strong> @libro.EstadoPrestamo.Prestamo</p>
+                    <form class="agregar-carrito-form" data-libro-id="@libro.Id">
+                        <div class="form-group">
+                            <label for="cantidad">Cantidad:</label>
+                            <input type="number" name="cantidad" value="1" min="1" max="@libro.Ejemplares" class="form-control cantidad" />
+                        </div>
+                        <button type="submit" class="btn btn-primary btn-block">
+                            <i class="fa-solid fa-cart-plus"></i>
+                            Agregar al Carrito
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    }
+</div>
+</div>
+
+@section Scripts {
+    <script>
+        $(document).ready(function () {
+            $(".agregar-carrito-form").on("submit", function (e) {
+                e.preventDefault(); // Evitar que el formulario se envíe de forma tradicional
+
+                var form = $(this);
+                var libroId = form.data("libro-id");
+                var cantidad = form.find(".cantidad").val();
+
+                $.ajax({
+                    url: "@Url.Action("AgregarAlCarritoAjax", "Carrito")",
+                    type: "POST",
+                    data: { libroId: libroId, cantidad: cantidad },
+                    success: function (response) {
+                        if (response.success) {
+                            // Actualizar el contador del carrito
+                            $("#contador-carrito").text(response.totalLibros).show();
+                        } else {
+                            alert("Se agrego el Libro al Carrito");
+                        }
+                    },
+                    error: function () {
+                        alert("Ocurrió un error al agregar el producto al carrito.");
+                    }
+                });
+            });
+        });
+    </script>
+}

@@ -165,6 +165,31 @@ namespace Biblioteca.Migrations
                         onDelete: ReferentialAction.Cascade);
                 });
 
+            migrationBuilder.CreateTable(
+                name: "CarritoItems",
+                columns: table => new
+                {
+                    CarritoItemId = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    LibroId = table.Column<int>(type: "int", nullable: false),
+                    Cantidad = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_CarritoItems", x => x.CarritoItemId);
+                    table.ForeignKey(
+                        name: "FK_CarritoItems_Libros_LibroId",
+                        column: x => x.LibroId,
+                        principalTable: "Libros",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateIndex(
+                name: "IX_CarritoItems_LibroId",
+                table: "CarritoItems",
+                column: "LibroId");
+
             migrationBuilder.CreateIndex(
                 name: "IX_Libros_AutorId",
                 table: "Libros",
@@ -204,6 +229,9 @@ namespace Biblioteca.Migrations
         /// <inheritdoc />
         protected override void Down(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.DropTable(
+                name: "CarritoItems");
+
             migrationBuilder.DropTable(
                 name: "Libros");
 

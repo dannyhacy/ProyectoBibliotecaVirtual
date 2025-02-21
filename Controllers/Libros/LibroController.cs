@@ -156,5 +156,28 @@ namespace Biblioteca.Controllers.Libros
             }
             return View(Libro);
         }
+
+
+
+
+        // METODO CARRITO
+        public IActionResult Carrito()
+        {
+            var libros = _LibroContext.Libros
+    .Include(l => l.Autor)
+    .Include(l => l.Editorial)
+    .Include(l => l.Genero)
+    .Include(l => l.Idioma)
+    .Include(l => l.UbicacionLibro)
+    .Include(l => l.EstadoLibro)
+    .Include(l => l.EstadoPrestamo)
+    .ToList();
+            int totalLibros = _LibroContext.CarritoItems.Sum(item => item.Cantidad);
+
+            ViewBag.TotalLibros = totalLibros;
+            return View(libros);
+        }
+
+
     }
 }

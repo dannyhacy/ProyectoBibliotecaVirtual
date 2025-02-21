@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Biblioteca.Migrations.LoginDb
 {
     [DbContext(typeof(LoginDbContext))]
-    [Migration("20250221150021_InicialLogin")]
+    [Migration("20250221205438_InicialLogin")]
     partial class InicialLogin
     {
         /// <inheritdoc />

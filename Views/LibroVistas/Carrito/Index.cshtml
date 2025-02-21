@@ -1,0 +1,52 @@
+﻿@model IEnumerable<Biblioteca.Models.Libro.CarritoItem>
+
+@{
+    ViewData["Title"] = "Carrito de Prestamo";
+    Layout = "~/Views/Shared/_LayoutCarrito.cshtml";
+}
+    <div class="account-listar2">
+        <h2 class="text-center mb-4" style="font-family:OMEGLE ; font-size: 45px"><b>Libros Prestados</b></h2>
+
+@if (Model.Any())
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Libro</th>
+                <th>Cantidad</th>
+                <th>Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>@item.Libro.Titulo</td>
+                    <td>@item.Cantidad</td>
+                    <td>
+                        <form asp-controller="Carrito" asp-action="EliminarDelCarrito" method="post">
+                            <input type="hidden" name="carritoItemId" value="@item.CarritoItemId" />
+                            <button type="submit" class="btn btn-danger">Eliminar</button>
+                        </form>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+
+    <a asp-controller="Libro" asp-action="Carrito" class="btn btn-primary">Seguir Viendo Libros</a>
+}
+else
+{
+    <div class="alert alert-info">
+        No hay Libros en el carrito.
+    </div>
+    <a asp-controller="Libro" asp-action="Carrito" class="btn btn-primary">Ir a Libros</a>
+}
+    </div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial.cshtml");
+    }
+}

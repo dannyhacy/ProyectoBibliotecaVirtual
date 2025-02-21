@@ -20,7 +20,7 @@ namespace Biblioteca.Data
         public DbSet<Libro> Libros { get; set; }
 
                
-
+        public DbSet<CarritoItem> CarritoItems { get; set; }
 
 
         
