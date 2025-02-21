@@ -41,7 +41,6 @@
                         </div>
                         <div class="row mb-3">
                             <div class="col-md-6">
-
                                 <div class="form-floating">
                                     <select asp-for="GeneroId" asp-items="ViewBag.Generos" class="form-control">
                                         <option value="" disabled selected>[Seleccione Género / Categoría]</option>
@@ -78,9 +77,21 @@
                         <div class="col-md-6">
                             <div class="form-floating">
                                 @Html.EditorFor(model => model.Ejemplares, new { htmlAttributes = new { @class = "form-control", @placeholder = "22" } })
-                                <label for="FechaNacimiento">Ingrese Cantidad de Libros en Stock</label>
+                                <label for="FechaNacimiento">Ingrese Cantidad de Ejemplares</label>
                                 @Html.ValidationMessageFor(model => model.Ejemplares, "", new { @class = "text-danger" })
                             </div>
+                        </div>
+                        <div class="row mb-3">
+                            <div class="col-md-6">
+                                <div class="form-floating">
+                                    <select asp-for="EstadoLibroId" asp-items="ViewBag.EstadoLibros" class="form-control">
+                                        <option value="" disabled selected>[Seleccione Estado de Libro]</option>
+                                    </select>
+                                    @Html.ValidationMessageFor(model => model.EstadoLibroId, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+
+
                         </div>
                         <div class="mt-4 mb-0">
                             <div class="d-grid">

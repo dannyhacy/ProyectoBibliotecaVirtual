@@ -11,7 +11,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Biblioteca.Migrations
 {
     [DbContext(typeof(BibliotecaContext))]
-    [Migration("20250220225832_Migra 01")]
+    [Migration("20250221000954_Migra 01")]
     partial class Migra01
     {
         /// <inheritdoc />
@@ -58,6 +58,24 @@ namespace Biblioteca.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Editoriales");
+                });
+
+            modelBuilder.Entity("Biblioteca.Models.Libro.EstadoLibro", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Estado")
+                        .IsRequired()
+                        .HasMaxLength(40)
+                        .HasColumnType("nvarchar(40)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("EstadoLibros");
                 });
 
             modelBuilder.Entity("Biblioteca.Models.Libro.Genero", b =>
@@ -118,6 +136,9 @@ namespace Biblioteca.Migrations
                     b.Property<int>("Ejemplares")
                         .HasColumnType("int");
 
+                    b.Property<int>("EstadoLibroId")
+                        .HasColumnType("int");
+
                     b.Property<int>("GeneroId")
                         .HasColumnType("int");
 
@@ -137,6 +158,8 @@ namespace Biblioteca.Migrations
                     b.HasIndex("AutorId");
 
                     b.HasIndex("EditorialId");
+
+                    b.HasIndex("EstadoLibroId");
 
                     b.HasIndex("GeneroId");
 
@@ -179,6 +202,12 @@ namespace Biblioteca.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.HasOne("Biblioteca.Models.Libro.EstadoLibro", "EstadoLibro")
+                        .WithMany()
+                        .HasForeignKey("EstadoLibroId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.HasOne("Biblioteca.Models.Libro.Genero", "Genero")
                         .WithMany()
                         .HasForeignKey("GeneroId")
@@ -200,6 +229,8 @@ namespace Biblioteca.Migrations
                     b.Navigation("Autor");
 
                     b.Navigation("Editorial");
+
+                    b.Navigation("EstadoLibro");
 
                     b.Navigation("Genero");
 

@@ -36,12 +36,13 @@ namespace Biblioteca.Models.Libro
         public int UbicacionLibroId { get; set; }
         public UbicacionLibro UbicacionLibro { get; set; }
 
-
         [Required(ErrorMessage = "La Cantidad es obligatoria.")]
         [RegularExpression("^[0-9]+$", ErrorMessage = "El Año debe contener solo números.")]
         public int Ejemplares { get; set; }
 
-
+        [Required(ErrorMessage = "El estado de Libro es obligatorio.")]
+        public int EstadoLibroId { get; set; }
+        public EstadoLibro EstadoLibro { get; set; }
 
     }
 }

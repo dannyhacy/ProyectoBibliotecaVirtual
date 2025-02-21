@@ -23,6 +23,7 @@ namespace Biblioteca.Controllers.Libros
                 .Include(g => g.Genero)
                 .Include(i => i.Idioma)
                 .Include(ul => ul.UbicacionLibro)
+                .Include(el => el.EstadoLibro)
                 .ToListAsync();
             return View(Libro);
         }
@@ -35,12 +36,13 @@ namespace Biblioteca.Controllers.Libros
             ViewData["Generos"] = new SelectList(_LibroContext.Generos, "Id", "GeneroLibro");
             ViewData["Idiomas"] = new SelectList(_LibroContext.Idiomas, "Id", "IdiomaLibro");
             ViewData["UbicacionLibros"] = new SelectList(_LibroContext.UbicacionLibros, "Id", "Ubicacion");
+            ViewData["EstadoLibros"] = new SelectList(_LibroContext.EstadoLibros, "Id", "Estado");
             return View();
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Titulo,AutorId,EditorialId,GeneroId,IdiomaId,AñoPublicacion,UbicacionLibroId,Ejemplares")] Libro libro)
+        public async Task<IActionResult> Create([Bind("Id,Titulo,AutorId,EditorialId,GeneroId,IdiomaId,AñoPublicacion,UbicacionLibroId,Ejemplares,EstadoLibroId")] Libro libro)
         {
             try
             {
@@ -54,7 +56,6 @@ namespace Biblioteca.Controllers.Libros
             }
             catch (Exception)
             {
-                // Manejo de excepciones
                 ModelState.AddModelError("", "El Libro que está intentando ingresar ya se encuentra en la lista");
             }
 
@@ -74,6 +75,7 @@ namespace Biblioteca.Controllers.Libros
             ViewData["Generos"] = new SelectList(_LibroContext.Generos, "Id", "NombreGenero");
             ViewData["Idiomas"] = new SelectList(_LibroContext.Idiomas, "Id", "IdiomaLibro");
             ViewData["UbicacionLibros"] = new SelectList(_LibroContext.UbicacionLibros, "Id", "Ubicacion");
+            ViewData["EstadoLibros"] = new SelectList(_LibroContext.EstadoLibros, "Id", "Estado");
             var libro = await _LibroContext.Libros.FirstOrDefaultAsync(l => l.Id == id);
             if (libro == null)
             {
@@ -84,7 +86,7 @@ namespace Biblioteca.Controllers.Libros
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Titulo,AutorId,EditorialId,GeneroId,IdiomaId,AñoPublicacion,UbicacionLibroId,Ejemplares")] Libro libro)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,Titulo,AutorId,EditorialId,GeneroId,IdiomaId,AñoPublicacion,UbicacionLibroId,Ejemplares,EstadoLibroId")] Libro libro)
         {
             try
             {
@@ -99,6 +101,7 @@ namespace Biblioteca.Controllers.Libros
                 ViewData["Generos"] = new SelectList(_LibroContext.Generos, "Id", "NombreGenero");
                 ViewData["Idiomas"] = new SelectList(_LibroContext.Idiomas, "Id", "IdiomaLibro");
                 ViewData["UbicacionLibros"] = new SelectList(_LibroContext.UbicacionLibros, "Id", "Ubicacion");
+                ViewData["EstadoLibros"] = new SelectList(_LibroContext.EstadoLibros, "Id", "Estado");
             }
             catch (Exception ex)
             {
