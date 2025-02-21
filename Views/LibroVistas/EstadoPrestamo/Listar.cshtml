@@ -4,7 +4,7 @@
 }
 
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css">
-<h1 class="mt-4">Lista de Estado</h1>
+<h1 class="mt-4">Lista de Estado de Prestamo</h1>
 <ol class="breadcrumb mb-4">
     <li class="breadcrumb-item">
         <form action="@Url.Action("Create", "EstadoPrestamo")" method="get" style="display:inline;">
@@ -32,8 +32,8 @@
                     <tr>
                         <td>@Html.DisplayFor(modelItem => estadoprestamo.Prestamo)</td>
                         <td>
-                            <a href="@Url.Action("Edit", "EstadoLibro", new { id = estadoprestamo.Id })" class="btn btn-primary me-2"><i class="fas fa-edit"></i></a>
-                            <form action="@Url.Action("Delete", "EstadoLibro", new { id = estadoprestamo.Id })" method="post" style="display:inline;">
+                            <a href="@Url.Action("Edit", "EstadoPrestamo", new { id = estadoprestamo.Id })" class="btn btn-primary me-2"><i class="fas fa-edit"></i></a>
+                            <form action="@Url.Action("Delete", "EstadoPrestamo", new { id = estadoprestamo.Id })" method="post" style="display:inline;">
                                 @Html.AntiForgeryToken() <!-- Agregar token de anti-falsificación -->
                                 <button type="submit" class="btn btn-danger me-2" onclick="return confirm('¿Estás seguro de que deseas eliminar el ESTADO DE PRESTAMO seleccionado?');"><i class="fas fa-trash"></i></button>
                             </form>

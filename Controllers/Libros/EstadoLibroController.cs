@@ -55,7 +55,7 @@ namespace Biblioteca.Controllers.Libros
             {
                 ModelState.AddModelError("", "Ocurrio un error al momento de Editar");
             }
-            var estadolibro = await _EstadoLibroContext.EstadoLibros.FirstOrDefaultAsync(a => a.Id == id);
+            var estadolibro = await _EstadoLibroContext.EstadoLibros.FirstOrDefaultAsync(el => el.Id == id);
             if (estadolibro == null)
             {
                 ModelState.AddModelError("", "No se encontró el Estado del Libro");

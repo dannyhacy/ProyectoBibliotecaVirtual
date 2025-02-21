@@ -72,18 +72,21 @@ namespace Biblioteca.Controllers.Libros
             {
                 ModelState.AddModelError("", "Ocurrio un error al momento de Editar");
             }
-            ViewData["Autores"] = new SelectList(_LibroContext.Autores, "Id", "NombreAutor");
-            ViewData["Editoriales"] = new SelectList(_LibroContext.Editoriales, "Id", "NombreEditorial");
-            ViewData["Generos"] = new SelectList(_LibroContext.Generos, "Id", "NombreGenero");
-            ViewData["Idiomas"] = new SelectList(_LibroContext.Idiomas, "Id", "IdiomaLibro");
-            ViewData["UbicacionLibros"] = new SelectList(_LibroContext.UbicacionLibros, "Id", "Ubicacion");
-            ViewData["EstadoLibros"] = new SelectList(_LibroContext.EstadoLibros, "Id", "Estado");
-            ViewData["EstadoPrestamos"] = new SelectList(_LibroContext.EstadoPrestamos, "Id", "Prestamo");
+
             var libro = await _LibroContext.Libros.FirstOrDefaultAsync(l => l.Id == id);
             if (libro == null)
             {
                 ModelState.AddModelError("", "El libro no se encuentra en la lista");
             }
+
+            ViewData["Autores"] = new SelectList(await _LibroContext.Autores.ToListAsync(), "Id", "AutorLibro");
+            ViewData["Editoriales"] = new SelectList(await _LibroContext.Editoriales.ToListAsync(), "Id", "EditorialLibro");
+            ViewData["Generos"] = new SelectList(await _LibroContext.Generos.ToListAsync(), "Id", "GeneroLibro");
+            ViewData["Idiomas"] = new SelectList(await _LibroContext.Idiomas.ToListAsync(), "Id", "IdiomaLibro");
+            ViewData["UbicacionLibros"] = new SelectList(await _LibroContext.UbicacionLibros.ToListAsync(), "Id", "Ubicacion");
+            ViewData["EstadoLibros"] = new SelectList(await _LibroContext.EstadoLibros.ToListAsync(), "Id", "Estado");
+            ViewData["EstadoPrestamos"] = new SelectList(await _LibroContext.EstadoPrestamos.ToListAsync(), "Id", "Prestamo");
+
             return View(libro);
         }
 
@@ -91,6 +94,10 @@ namespace Biblioteca.Controllers.Libros
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, [Bind("Id,Titulo,AutorId,EditorialId,GeneroId,IdiomaId,AñoPublicacion,UbicacionLibroId,Ejemplares,EstadoLibroId,EstadoPrestamoId")] Libro libro)
         {
+            if (id != libro.Id)
+            {
+                ModelState.AddModelError("", "Ocurrio un error al momento de Editar");
+            }
             try
             {
                 if (ModelState.IsValid)
@@ -99,20 +106,27 @@ namespace Biblioteca.Controllers.Libros
                     await _LibroContext.SaveChangesAsync();
                     return RedirectToAction("Listar");
                 }
-                ViewData["Autores"] = new SelectList(_LibroContext.Autores, "Id", "NombreAutor");
-                ViewData["Editoriales"] = new SelectList(_LibroContext.Editoriales, "Id", "NombreEditorial");
-                ViewData["Generos"] = new SelectList(_LibroContext.Generos, "Id", "NombreGenero");
-                ViewData["Idiomas"] = new SelectList(_LibroContext.Idiomas, "Id", "IdiomaLibro");
-                ViewData["UbicacionLibros"] = new SelectList(_LibroContext.UbicacionLibros, "Id", "Ubicacion");
-                ViewData["EstadoLibros"] = new SelectList(_LibroContext.EstadoLibros, "Id", "Estado");
-                ViewData["EstadoPrestamos"] = new SelectList(_LibroContext.EstadoPrestamos, "Id", "Prestamo");
+            }
+            catch (DbUpdateConcurrencyException)
+            {
+                ModelState.AddModelError("", "Ocurrió un error de concurrencia. Por favor, inténtelo de nuevo.");
             }
             catch (Exception ex)
             {
-                ModelState.AddModelError("", "Ocurrio un error al momento de Editar =>" + ex.Message);
-            }           
+                ModelState.AddModelError("", "Ocurrió un error al momento de editar: " + ex.Message);
+            }
+            
+            ViewData["Autores"] = new SelectList(await _LibroContext.Autores.ToListAsync(), "Id", "AutorLibro");
+            ViewData["Editoriales"] = new SelectList(await _LibroContext.Editoriales.ToListAsync(), "Id", "EditorialLibro");
+            ViewData["Generos"] = new SelectList(await _LibroContext.Generos.ToListAsync(), "Id", "GeneroLibro");
+            ViewData["Idiomas"] = new SelectList(await _LibroContext.Idiomas.ToListAsync(), "Id", "IdiomaLibro");
+            ViewData["UbicacionLibros"] = new SelectList(await _LibroContext.UbicacionLibros.ToListAsync(), "Id", "Ubicacion");
+            ViewData["EstadoLibros"] = new SelectList(await _LibroContext.EstadoLibros.ToListAsync(), "Id", "Estado");
+            ViewData["EstadoPrestamos"] = new SelectList(await _LibroContext.EstadoPrestamos.ToListAsync(), "Id", "Prestamo");
+
             return View(libro);
         }
+
 
 
         [HttpPost]
