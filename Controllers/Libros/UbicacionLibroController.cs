@@ -9,11 +9,14 @@ namespace Biblioteca.Controllers.Libros
     {
         private readonly BibliotecaContext _UbicacionLibroContext;
 
+        //constructor
         public UbicacionLibroController(BibliotecaContext ubicacionLibroContext)
         {
             _UbicacionLibroContext = ubicacionLibroContext;
         }
 
+        // metodos
+                
         public async Task<IActionResult> Listar()
         {
             var ubicacionlibro = await _UbicacionLibroContext.UbicacionLibros.ToListAsync();
@@ -45,7 +48,6 @@ namespace Biblioteca.Controllers.Libros
             {
                 ModelState.AddModelError("", "El Autor que está intentando ingresar ya se encuentra en la lista");
             }
-
             return View(ubicacionlibro);
         }
 
@@ -99,7 +101,7 @@ namespace Biblioteca.Controllers.Libros
             var ubicacionlibro = await _UbicacionLibroContext.UbicacionLibros.FirstOrDefaultAsync(ul => ul.Id == id);
             if (ubicacionlibro == null)
             {
-                ModelState.AddModelError("", "No se encontró el Autor");
+                ModelState.AddModelError("", "No se encontró la Ubicacion del Libro");
             }
             try
             {
@@ -112,7 +114,7 @@ namespace Biblioteca.Controllers.Libros
             }
             catch (Exception)
             {
-                ModelState.AddModelError("", "No se puede eliminar el Autor");
+                ModelState.AddModelError("", "No se puede eliminar la Ubicacion del Libro");
             }
             return View(ubicacionlibro);
         }

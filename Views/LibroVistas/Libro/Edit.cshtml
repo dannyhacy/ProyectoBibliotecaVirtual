@@ -2,14 +2,12 @@
 @{
     ViewData["Title"] = "Edit";
 }
-
+<div class="account-listar3">
+    <h2 class="text-center mb-4" style="font-family:OMEGLE ; font-size: 45px"><b>Nuevo Libro</b></h2>
 @using (Html.BeginForm())
 {
     <div class="container">
         <div class="row justify-content-center">
-            <div class="col-lg-7">
-                <div class="card shadow-lg border-0 rounded-lg mt-5">
-                    <div class="card-header"><h3 class="text-center font-weight-light my-4">Modificar Libro</h3></div>
                     @Html.ValidationSummary(true, "", new { @class = "text-danger" })
                     <div class="card-body">
                         <form asp-action="Edit" method="post">
@@ -42,7 +40,7 @@
 
                                 <div class="form-floating">
                                     <select asp-for="GeneroId" asp-items="ViewBag.Generos" class="form-control">
-                                        <option value="" disabled selected>[Seleccione Género / Categoría]</option>
+                                        <option value="" disabled selected>[Seleccione Género/Categoría]</option>
                                     </select>
                                     @Html.ValidationMessageFor(model => model.GeneroId, "", new { @class = "text-danger" })
                                 </div>
@@ -60,26 +58,28 @@
                                 <div class="col-md-6">
                                     <div class="form-floating">
                                         @Html.EditorFor(model => model.AñoPublicacion, new { htmlAttributes = new { @class = "form-control", @placeholder = "22" } })
-                                        <label for="AñoPublicacion">Ingrese Año de Publicacion</label>
+                                        <label for="AñoPublicacion">Ingrese Año de Publicación</label>
                                         @Html.ValidationMessageFor(model => model.AñoPublicacion, "", new { @class = "text-danger" })
                                     </div>
                                 </div>
                                 <div class="col-md-6">
                                     <div class="form-floating">
                                         <select asp-for="UbicacionLibroId" asp-items="ViewBag.UbicacionLibros" class="form-control">
-                                            <option value="" disabled selected>[Seleccione Ubicacion]</option>
+                                            <option value="" disabled selected>[Seleccione Ubicación]</option>
                                         </select>
                                         @Html.ValidationMessageFor(model => model.UbicacionLibroId, "", new { @class = "text-danger" })
                                     </div>
                                 </div>
-                            </div>
-                            <div class="col-md-6">
-                                <div class="form-floating">
-                                    @Html.EditorFor(model => model.Ejemplares, new { htmlAttributes = new { @class = "form-control", @placeholder = "22" } })
-                                    <label for="FechaNacimiento">Ingrese Cantidad de Ejemplares</label>
-                                    @Html.ValidationMessageFor(model => model.Ejemplares, "", new { @class = "text-danger" })
                                 </div>
-                            </div>
+                                <div class="row mb-3">
+                                    <div class="col-md-6">
+                                        <div class="form-floating">
+                                            @Html.EditorFor(model => model.Ejemplares, new { htmlAttributes = new { @class = "form-control", @placeholder = "22" } })
+                                            <label for="FechaNacimiento">Ingrese Cantidad de Ejemplares</label>
+                                            @Html.ValidationMessageFor(model => model.Ejemplares, "", new { @class = "text-danger" })
+                                        </div>
+                                    </div>
+                                </div>
                             <div class="row mb-3">
                                 <div class="col-md-6">
                                     <div class="form-floating">
@@ -109,9 +109,8 @@
                     <div class="card-footer text-center py-3">
                         <div class="small"><a href=@Url.Action("Listar","Libro")><h5>Regresar a la Lista de Libros</h5></a></div>
                     </div>
-                </div>
-            </div>
         </div>
     </div>
-}
+    }
+</div>
 

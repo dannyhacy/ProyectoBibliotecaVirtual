@@ -28,7 +28,6 @@ namespace Biblioteca.Models.Libro
 
         [Required(ErrorMessage = "El Año de Publicacion es obligatorio.")]
         [StringLength(4, ErrorMessage = "El Año no puede tener más de 4 caracteres (2023).")]
-        [RegularExpression("^(19|20)\\d{2}$", ErrorMessage = "El Año no es válido (un ejemplo: 2025).")]
         [Range(1900, 2100, ErrorMessage = "El Año debe estar entre 1900 y 2100.")]
         public string AñoPublicacion { get; set; }
 

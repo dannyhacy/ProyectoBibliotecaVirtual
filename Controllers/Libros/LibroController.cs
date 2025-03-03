@@ -17,16 +17,16 @@ namespace Biblioteca.Controllers.Libros
 
         public async Task<IActionResult> Listar()
         {
-            var Libro = await _LibroContext.Libros
+            var libro = await _LibroContext.Libros
                 .Include(a => a.Autor)
                 .Include(e => e.Editorial)
                 .Include(g => g.Genero)
                 .Include(i => i.Idioma)
                 .Include(ul => ul.UbicacionLibro)
                 .Include(el => el.EstadoLibro)
-                .Include(el => el.EstadoPrestamo)
+                .Include(ep => ep.EstadoPrestamo)
                 .ToListAsync();
-            return View(Libro);
+            return View(libro);
         }
 
         [HttpGet]
@@ -72,7 +72,6 @@ namespace Biblioteca.Controllers.Libros
             {
                 ModelState.AddModelError("", "Ocurrio un error al momento de Editar");
             }
-
             var libro = await _LibroContext.Libros.FirstOrDefaultAsync(l => l.Id == id);
             if (libro == null)
             {
@@ -153,10 +152,32 @@ namespace Biblioteca.Controllers.Libros
             }
             catch (Exception)
             {
-                // Manejo de excepciones
                 ModelState.AddModelError("", "No se puede eliminar Libro");
             }
             return View(Libro);
         }
+
+
+
+
+        // METODO CARRITO
+        public IActionResult Carrito()
+        {
+            var libros = _LibroContext.Libros
+    .Include(l => l.Autor)
+    .Include(l => l.Editorial)
+    .Include(l => l.Genero)
+    .Include(l => l.Idioma)
+    .Include(l => l.UbicacionLibro)
+    .Include(l => l.EstadoLibro)
+    .Include(l => l.EstadoPrestamo)
+    .ToList();
+            int totalLibros = _LibroContext.CarritoItems.Sum(item => item.Cantidad);
+
+            ViewBag.TotalLibros = totalLibros;
+            return View(libros);
+        }
+
+
     }
 }

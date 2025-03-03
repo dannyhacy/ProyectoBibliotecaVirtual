@@ -14,11 +14,10 @@ namespace Biblioteca.Controllers.Libros
             _AutorContext = autorcontext;
         }
         
-
         public async Task<IActionResult> Listar()
         {
-            var Autor = await _AutorContext.Autores.ToListAsync();
-            return View(Autor); ;
+            var autor = await _AutorContext.Autores.ToListAsync();
+            return View(autor); ;
         }
 
         [HttpGet]

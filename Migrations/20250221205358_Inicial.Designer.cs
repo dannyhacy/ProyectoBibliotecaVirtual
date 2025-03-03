@@ -11,8 +11,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Biblioteca.Migrations
 {
     [DbContext(typeof(BibliotecaContext))]
-    [Migration("20250221003701_Migra 01")]
-    partial class Migra01
+    [Migration("20250221205358_Inicial")]
+    partial class Inicial
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -40,6 +40,27 @@ namespace Biblioteca.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Autores");
+                });
+
+            modelBuilder.Entity("Biblioteca.Models.Libro.CarritoItem", b =>
+                {
+                    b.Property<int>("CarritoItemId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("CarritoItemId"));
+
+                    b.Property<int>("Cantidad")
+                        .HasColumnType("int");
+
+                    b.Property<int>("LibroId")
+                        .HasColumnType("int");
+
+                    b.HasKey("CarritoItemId");
+
+                    b.HasIndex("LibroId");
+
+                    b.ToTable("CarritoItems");
                 });
 
             modelBuilder.Entity("Biblioteca.Models.Libro.Editorial", b =>
@@ -209,6 +230,17 @@ namespace Biblioteca.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("UbicacionLibros");
+                });
+
+            modelBuilder.Entity("Biblioteca.Models.Libro.CarritoItem", b =>
+                {
+                    b.HasOne("Biblioteca.Models.Libro.Libro", "Libro")
+                        .WithMany()
+                        .HasForeignKey("LibroId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Libro");
                 });
 
             modelBuilder.Entity("Biblioteca.Models.Libro.Libro", b =>

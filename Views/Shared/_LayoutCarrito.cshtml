@@ -1,0 +1,178 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - CarritoPrestamo</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/SistemaVentas.styles.css" asp-append-version="true" />
+    <link href="https://cdn.jsdelivr.net/npm/simple-datatables@7.1.2/dist/style.min.css" rel="stylesheet" />
+    <link href="~/css/styles.css" rel="stylesheet" />
+    <!-- Agregar Font Awesome para íconos -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" />
+    <link rel="stylesheet" href="~/css/account.css" asp-append-version="true" />
+</head>
+
+<body class="sb-nav-fixed">
+    <!-- Navbar Mejorado -->
+        <nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
+        <div class="container-fluid">
+            <!-- Logo o Nombre de la Empresa -->
+            <a class="navbar-brand ps-3" asp-controller="Home" asp-action="Index" style="color:coral; font-size: 30px">Mi Biblioteca</a>
+
+            <!-- Botón para Menú en Dispositivos Móviles -->
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <!-- Contenido del Navbar -->
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <!-- Menú de Navegación -->
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    <li class="nav-item">
+                        <a class="nav-link" asp-area="" asp-controller="Libro" asp-action="Carrito">
+                            <!-- Llamado de la pestaña-->
+                            <i class="fas fa-box-open me-1"></i>Libros
+                        </a>
+                    </li>
+                </ul>
+
+                <!-- Botón de Carrito con Contador -->
+                <a asp-controller="Carrito" asp-action="Index" class="btn btn-outline-light position-relative me-2" id="ver-carrito">
+                    <!-- Llamado de la pestaña-->
+                    <i class="fas fa-shopping-cart"></i>
+                    @if (ViewBag.TotalLibros != null && ViewBag.TotalLibros > 0)
+                    {
+                        <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger" id="contador-carrito">
+                            @ViewBag.TotalLibros
+                        </span>
+                    }
+                    else
+                    {
+                        <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger" id="contador-carrito" style="display: none;">
+                            0
+                        </span>
+                    }
+                </a> 
+            </div>
+        </div>
+    </nav>
+    <div id="layoutSidenav">
+        <div id="layoutSidenav_nav">
+            <nav class="sb-sidenav accordion sb-sidenav-dark" id="sidenavAccordion">
+                <div class="sb-sidenav-menu" style="background-color:black">
+                    <div class="nav">
+                        <div class="sb-sidenav-menu-heading" style="color:crimson; font-size:20px">Conócenos!</div>
+                        <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapseLayouts1" aria-expanded="false" aria-controls="collapseLayouts">
+                            <div class="sb-nav-link-icon"><i class="fas fa-columns" style="color: cyan"></i></div>
+                            <span style="color: cyan;"><b>Acerca de Nosotros / Misión / Visión</b></span>
+                            <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
+                        </a>
+                        <div class="collapse" id="collapseLayouts1" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordion">
+                            <nav class="sb-sidenav-menu-nested nav">
+                                <a class="nav-link" style="color: greenyellow" href="@Url.Action("Nosotros","Home")">Acerca de Nosotros</a>
+                                <a class="nav-link" style="color: greenyellow" href="@Url.Action("Mision","Home")">Nuestra Misión</a>
+                                <a class="nav-link" style="color: greenyellow" href="@Url.Action("Vision","Home")">Nuestra Visión</a>
+                            </nav>
+                        </div>
+
+                        @if (User.IsInRole("User") || User.IsInRole("Admin"))
+                        {
+                            <div class="sb-sidenav-menu-heading" style="color:crimson; font-size:20px">¿Qué necesitas?</div>
+                            <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapseLayoutsp" aria-expanded="false" aria-controls="collapseLayouts">
+                                <div class="sb-nav-link-icon"><i class="fas fa-columns" style="color: cyan"></i></div>
+                                <span style="color: cyan;"><b>Usuario</b></span>
+                                <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
+                            </a>
+                            <div class="collapse" id="collapseLayoutsp" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordion">
+                                <nav class="sb-sidenav-menu-nested nav">
+                                    <a class="nav-link" style="color: greenyellow" href="@Url.Action("Perfil","Usuario")">Perfil</a>
+
+                                    @if (User.IsInRole("Admin"))
+                                    {
+                                        <a class="nav-link" style="color: greenyellow">-------------</a>
+                                        <a class="nav-link" style="color: greenyellow" href="@Url.Action("Index","Usuario")">Lista de Usuarios</a>
+                                    }
+                                </nav>
+                            </div>
+                            @if (User.IsInRole("Admin"))
+                            {
+                                <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapseLayouts3" aria-expanded="false" aria-controls="collapseLayouts">
+                                    <div class="sb-nav-link-icon"><i class="fas fa-columns" style="color: cyan"></i></div>
+                                    <span style="color: cyan;"><b>Libro</b></span>
+                                    <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
+                                </a>
+                                <div class="collapse" id="collapseLayouts3" aria-labelledby="headingThree" data-bs-parent="#sidenavAccordion">
+                                    <nav class="sb-sidenav-menu-nested nav">
+                                        @if (User.IsInRole("Admin"))
+                                        {
+                                            <a class="nav-link" style="color: greenyellow" href="@Url.Action("Listar","Autor")">Autor</a>
+                                            <a class="nav-link" style="color: greenyellow" href="@Url.Action("Listar","Editorial")">Editorial</a>
+                                            <a class="nav-link" style="color: greenyellow" href="@Url.Action("Listar","Genero")">Género / Categoría</a>
+                                            <a class="nav-link" style="color: greenyellow" href="@Url.Action("Listar","Idioma")">Idioma</a>
+                                            <a class="nav-link" style="color: greenyellow" href="@Url.Action("Listar","UbicacionLibro")">Ubicacion de Libro</a>
+                                            <a class="nav-link" style="color: greenyellow" href="@Url.Action("Listar","EstadoLibro")">Estado del Libro</a>
+                                            <a class="nav-link" style="color: greenyellow" href="@Url.Action("Listar","EstadoPrestamo")">Estado del Prestamo</a>
+                                            <a class="nav-link" style="color: darkorange" href="@Url.Action("Listar","Libro")"><b>LIBRO</b></a>
+                                        }
+                                    </nav>
+                                </div>
+                            }
+                        }
+                        @if (User.IsInRole("User") || User.IsInRole("Admin"))
+                        {
+                            <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapseLayouts2" aria-expanded="false" aria-controls="collapseLayouts">
+                                <div class="sb-nav-link-icon"><i class="fas fa-columns" style="color: cyan"></i></div>
+                                <span style="color: cyan;"><b>Prestamo</b></span>
+                                <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
+                            </a>
+                            <div class="collapse" id="collapseLayouts2" aria-labelledby="headingTwo" data-bs-parent="#sidenavAccordion">
+                                <nav class="sb-sidenav-menu-nested nav">
+                                    <a class="nav-link" style="color: greenyellow" href="@Url.Action("Carrito","Libro")">Buscar Libros</a>
+                                    <a class="nav-link" style="color: greenyellow" href="@Url.Action("Index","Carrito")">Ver Prestamo</a>
+                                </nav>
+                            </div>
+                        }
+                    </div>
+                </div>
+                <div class="sb-sidenav-footer">
+                    <div class="small">Logged in as:</div>
+                    Start Bootstrap
+                </div>
+            </nav>
+        </div>
+        <div id="layoutSidenav_content">
+            <div class="account-container">
+                <main role="main" class="pb-3">
+                    @RenderBody()
+                </main>
+            </div>
+        <footer class="py-4 bg-light mt-auto">
+            <div class="container-fluid px-4">
+                <div class="d-flex align-items-center justify-content-between small">
+                    <div class="text-muted">Copyright &copy; Your Website 2023</div>
+                    <div>
+                        <a href="#">Privacy Policy</a>
+                        &middot;
+                        <a href="#">Terms &amp; Conditions</a>
+                    </div>
+                </div>
+            </div>
+        </footer>
+        </div>
+    </div>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
+    <script src="~/js/scripts.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js" crossorigin="anonymous"></script>
+    <script src="~/assets/demo/chart-area-demo.js"></script>
+    <script src="~/assets/demo/chart-bar-demo.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/simple-datatables@7.1.2/dist/umd/simple-datatables.min.js" crossorigin="anonymous"></script>
+    <script src="~/js/datatables-simple-demo.js"></script>
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    @await RenderSectionAsync("Scripts", required: false)
+
+</body>
+</html>

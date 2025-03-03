@@ -3,12 +3,12 @@
     ViewData["title"] = "Listar";
 }
 
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css">
-<h1 class="mt-4">Lista de Estado de Libro</h1>
+<div class="account-listar">
+    <h2 class="text-center mb-4" style="font-family:OMEGLE ; font-size: 45px"><b>Lista de Estado de Libro</b></h2>
 <ol class="breadcrumb mb-4">
     <li class="breadcrumb-item">
         <form action="@Url.Action("Create", "EstadoLibro")" method="get" style="display:inline;">
-            <button type="submit" class="btn btn-primary">Nuevo Estado</button>
+            <button type="submit" class="btn btn-primary">Nuevo Estado de Libro</button>
         </form>
     </li>
 </ol>
@@ -45,4 +45,5 @@
             </tbody>
         </table>
     </div>
+</div>
 </div>

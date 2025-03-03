@@ -45,7 +45,6 @@ namespace Biblioteca.Controllers.Libros
                 // Manejo de excepciones
                 ModelState.AddModelError("", "La editorial que está intentando ingresar ya se encuentra en la lista");
             }
-
             return View(editorial);
         }
 

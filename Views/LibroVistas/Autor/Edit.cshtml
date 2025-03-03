@@ -5,18 +5,15 @@
 
 @using (Html.BeginForm())
 {
-    <div class="container">
-        <div class="row justify-content-center">
-            <div class="col-lg-7">
-                <div class="card shadow-lg border-0 rounded-lg mt-5">
-                    <div class="card-header"><h3 class="text-center font-weight-light my-4">Modificar Autor</h3></div>
+    <div class="account-login2">
+        <h2 class="text-center mb-4" style="font-family:OMEGLE ; font-size: 45px"><b>Modificar Autor</b></h2>
                     @Html.ValidationSummary(true, "", new { @class = "text-danger" })
                     <div class="card-body">
                         <form asp-action="Edit" method="post">
                             @Html.AntiForgeryToken() <!--seguridad Token-->
                             <div class="form-floating mb-3">
                                 @Html.EditorFor(model => model.AutorLibro, new { htmlAttributes = new { @class = "form-control", @placeholder = "22" } })
-                                <label for="Nombre">Ingrese su Nombre</label>
+                                <label for="Nombre">Ingrese Nombre de Autor</label>
                                 @Html.ValidationMessageFor(model => model.AutorLibro, "", new { @class = "text-danger" })
                             </div>
                             <div class="mt-4 mb-0">
@@ -28,9 +25,6 @@
                     </div>
                     <div class="card-footer text-center py-3">
                         <div class="small"><a href=@Url.Action("Listar","Autor")><h5>Regresar a la Lista de Autores</h5></a></div>
-                    </div>
-                </div>
-            </div>
         </div>
     </div>
 }
